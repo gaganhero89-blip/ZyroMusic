@@ -1,65 +1,81 @@
+# ── Core Async & Web ──────────────────────────────────────────
 aiofiles
 aiohttp
+httpx>=0.28.1
+requests
+asyncio
+
+# ── Telegram ──────────────────────────────────────────────────
+git+https://github.com/KurimuzonAkuma/pyrogram.git
+python-telegram-bot
+telebot
+
+# ── Music / Voice ─────────────────────────────────────────────
+git+https://github.com/yt-dlp/yt-dlp.git
+py-tgcalls
+youtube-search-python
+youtube-search
+yt-search-py==1.0.0
+spotipy
+pydub
+gtts
+ffmpeg-python
+SpeechRecognition
+
+# ── Database ──────────────────────────────────────────────────
+motor
+mysql-connector-python==9.0.0
+dnspython
+
+# ── Scheduling ────────────────────────────────────────────────
 apscheduler
+
+# ── Web Scraping & Search ─────────────────────────────────────
 beautifulsoup4
 bs4
-telegraph
-wget
-unidecode
-dnspython
-emojis
-ffmpeg-python
-geopy
-gitpython
-hachoir
-heroku3
-git+https://github.com/AsmSafone/SafoneAPI
-img2pdf
-langdetect
-motor
-numpy
+search_engine_parser
+
+# ── Media & Images ────────────────────────────────────────────
 pillow
-psutil
-pycountry
-pycryptodome
-pyfiglet
-python-dotenv
-#
-python-whois
-pytz
-pyyaml==6.0.1
-pykeyboard
-python-telegram-bot
-#httpx[http2]==0.27.2
-httpx>=0.28.1
-#httpx==0.27.0
-qrcode
-requests
-speedtest-cli
-stripe==10.7.0
-telebot
-git+https://github.com/TeamZyro/daxxhub.git
-youtube-search-python
-git+https://github.com/KurimuzonAkuma/pyrogram.git
-git+https://github.com/yt-dlp/yt-dlp.git
-py-tgcalls==2.2.11 
-#git+https://github.com/MrZyro/ZyroTgCall.git
-SpeechRecognition
-spotipy
-asyncio
-bard
+img2pdf
+opencv-python-headless
+hachoir
 bing_image_downloader
 lexica-api
-Faker
-instaloader
-openai==0.28.0
-pydub
-pyyaml==6.0.1
-MukeshAPI
-youtube-search
+qrcode
+
+# ── Text & Language ───────────────────────────────────────────
+unidecode
+langdetect
 gpytranslate
-gtts
-mysql-connector-python==9.0.0
-search_engine_parser
-opencv-python-headless
-yt-search-py==1.0.0
+pyfiglet
+Faker
+emojis
+
+# ── Utilities ─────────────────────────────────────────────────
+python-dotenv
+psutil
+pytz
+pyyaml==6.0.1
+pycountry
+pycryptodome
+numpy
+wget
+geopy
+telegraph
+python-whois
+instaloader
+speedtest-cli
+
+# ── AI / API ──────────────────────────────────────────────────
+openai==0.28.0
+git+https://github.com/AsmSafone/SafoneAPI
+MukeshAPI
+
+# ── Git & Deploy ──────────────────────────────────────────────
+gitpython
+heroku3
+stripe==10.7.0
+
+# ── Custom Packages ───────────────────────────────────────────
+git+https://github.com/TeamZyro/daxxhub.git
