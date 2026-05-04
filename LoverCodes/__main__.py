@@ -1,5 +1,7 @@
 import asyncio
 import importlib
+from threading import Thread
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -13,6 +15,35 @@ from LoverCodes.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
 
 
+# ─────────────────────────────────────────
+#         KEEP ALIVE - HTTP SERVER
+#  Render ke liye port 10000 pe listen karta
+# ─────────────────────────────────────────
+
+class KeepAliveHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is alive!")
+
+    def log_message(self, format, *args):
+        pass  # Unnecessary logs band
+
+
+def run_keep_alive():
+    server = HTTPServer(("0.0.0.0", 10000), KeepAliveHandler)
+    server.serve_forever()
+
+
+def keep_alive():
+    t = Thread(target=run_keep_alive, daemon=True)
+    t.start()
+
+
+# ─────────────────────────────────────────
+#              MAIN BOT INIT
+# ─────────────────────────────────────────
+
 async def init():
     if (
         not config.STRING1
@@ -23,7 +54,9 @@ async def init():
     ):
         LOGGER(__name__).error("𝐒𝐭𝐫𝐢𝐧𝐠 𝐒𝐞𝐬𝐬𝐢𝐨𝐧 𝐍𝐨𝐭 𝐅𝐢𝐥𝐥𝐞𝐝, 𝐏𝐥𝐞𝐚𝐬𝐞 𝐅𝐢𝐥𝐥 𝐀 𝐏𝐲𝐫𝐨𝐠𝐫𝐚𝐦 𝐒𝐞𝐬𝐬𝐢𝐨𝐧")
         exit()
+
     await sudo()
+
     try:
         users = await get_gbanned()
         for user_id in users:
@@ -33,12 +66,17 @@ async def init():
             BANNED_USERS.add(user_id)
     except:
         pass
+
     await app.start()
+
     for all_module in ALL_MODULES:
         importlib.import_module("LoverCodes.plugins" + all_module)
+
     LOGGER("LoverCodes.plugins").info("𝐀𝐥𝐥 𝐅𝐞𝐚𝐭𝐮𝐫𝐞𝐬 𝐋𝐨𝐚𝐝𝐞𝐝 𝐁𝐚𝐛𝐲🥳...")
+
     await userbot.start()
     await Lover.start()
+
     try:
         await Lover.stream_call("https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4")
     except NoActiveGroupCall:
@@ -48,16 +86,22 @@ async def init():
         exit()
     except:
         pass
+
     await Lover.decorators()
+
     LOGGER("LoverCodes").info(
         "╔═════ஜ۩۞۩ஜ════╗\n  ☠︎︎𝗠𝗔𝗗𝗘 𝗕𝗬 𝗟𝗼𝘃𝗲𝗿𝗖𝗼𝗱𝗲𝘀☠︎︎\n╚═════ஜ۩۞۩ஜ════╝"
     )
+
     await idle()
     await app.stop()
     await Lover.stop()
     await userbot.stop()
+
     LOGGER("LoverCodes").info("𝗦𝗧𝗢𝗣 𝗟𝗼𝘃𝗲𝗿𝗖𝗼𝗱𝗲𝘀 𝗠𝗨𝗦𝗜𝗖🎻 𝗕𝗢𝗧..")
 
 
 if __name__ == "__main__":
+    keep_alive()  # HTTP server start - Render port detect karega
     asyncio.get_event_loop().run_until_complete(init())
+        
