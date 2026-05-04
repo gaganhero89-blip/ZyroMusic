@@ -35,6 +35,10 @@ DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 17000))
 OWNER_ID = int(getenv("OWNER_ID", 7918103039))
 # -----------------------------------------------------------------
 
+# ---------------- DEV / EVAL ----------------
+EVAL = getenv("EVAL", "True") == "True"
+LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", "0"))
+# --------------------------------------------
 
 # ----------------------------------------------------------------
 UPSTREAM_REPO = getenv(
